@@ -4,7 +4,7 @@ const Navbar = () => {
   const menuItems = [
     {
       name: "Add Restaurant",
-      url: "/NewRestaurant",
+      url: "/newRestaurant",
     },
     {
       name: "About Us",
@@ -61,8 +61,12 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end space-x-2">
-        <button className="btn btn-soft btn-primary">Resgister</button>
-        <button className="btn btn-soft btn-success ">Login</button>
+        <a href="/signup" className="btn btn-soft btn-primary">
+          SIGN UP
+        </a>
+        <a href="/signin" className="btn btn-soft btn-success ">
+          SIGN IN
+        </a>
       </div>
     </div>
   );

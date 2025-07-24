@@ -1,7 +1,8 @@
-import db from "../models/index";
+import db from "../models/index.js";
 const User = db.User;
 const Role = db.Role;
 import bcrypt from "bcryptjs";
+import config from "../config/auth.config.js";
 import jwt from "jsonwebtoken";
 import { Op } from "sequelize";
 
@@ -22,7 +23,12 @@ authController.signUp = async (req, res) => {
       return;
     });
 
-  const newUser = { username, name, email, password };
+  const newUser = {
+    username,
+    name,
+    email,
+    password: bcrypt.hashSync(password, 8),
+  };
   User.create(newUser)
     .then((user) => {
       // send roles in body [ADMIN]
@@ -53,6 +59,52 @@ authController.signUp = async (req, res) => {
       res.status(500).send({
         message:
           error.message || "Something error while registering a new user",
+      });
+    });
+};
+
+authController.signIn = async (req, res) => {
+  const { username, password } = req.body;
+  if (!username || !password) {
+    res.status(400).send({ message: "Username or password are missing!" });
+    return;
+  }
+  await User.findOne({
+    where: { username: username },
+  })
+    .then((user) => {
+      if (!user) {
+        res.status(404).send({ message: "User not found :(" });
+        return;
+      }
+      const passwordIsValid = bcrypt.compareSync(password, user.password);
+      if (!passwordIsValid) {
+        res.status(401).send({ message: "Invalid Password!" });
+      }
+      //Valid User
+      const token = jwt.sign({ username: user.username }, config.secret, {
+        expiresIn: 86400, //60 secs * 60 mins * 24 HOURS = 86400
+      });
+      const authorities = [];
+      user.getRoles().then((roles) => {
+        for (let i = 0; i < roles.length; i++) {
+          //ROLES_USER
+          authorities.push("ROLES_" + roles[i].name.toUpperCase());
+        }
+        res.send({
+          token: token,
+          authorities: authorities,
+          userInfo: {
+            name: user.name,
+            email: user.email,
+            username: user.username,
+          },
+        });
+      });
+    })
+    .catch((error) => {
+      res.status(500).send({
+        message: error.message || "Something error while Signin!",
       });
     });
 };

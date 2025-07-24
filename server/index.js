@@ -26,10 +26,11 @@ const innitRole = () => {
   role.create({ id: 2, name: "moderator" });
   role.create({ id: 3, name: "admin" });
 };
-db.sequelize.sync({ force: true }).then(() => {
-  innitRole();
-  console.log("Drop and Sync");
-});
+
+// db.sequelize.sync({ force: false }).then(() => {
+//   innitRole();
+//   console.log("Drop and Sync");
+// });
 
 app.get("/", (req, res) => {
   res.send("Restaurant Restful API");
@@ -37,7 +38,7 @@ app.get("/", (req, res) => {
 
 //use router
 app.use("/api/v1/restaurants", restaurantRouter);
-app.use("/api/v1/auth/signup", authRouter);
+app.use("/api/v1/auth", authRouter);
 
 app.listen(PORT, () => {
   console.log("Listening to http://localhost:" + PORT);

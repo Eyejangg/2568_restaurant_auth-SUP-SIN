@@ -11,7 +11,7 @@ db.Sequelize = Sequelize;
 db.User = User;
 db.Role = Role;
 
-//Association
+// association
 db.User.belongsToMany(db.Role, {
   through: "user_roles",
 });
