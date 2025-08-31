@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-
+import RestaurantService from "../services/restaurant.service";
+import Swal from "sweetalert2";
 const AddRestaurant = () => {
   const [restaurant, setRestaurants] = useState({
     name: "",
@@ -12,21 +13,21 @@ const AddRestaurant = () => {
   };
   const handleSubmit = async () => {
     try {
-      const response = await fetch(
-        "http://localhost:5000/api/v1/restaurants/",
-        {
-          method: "POST",
-          body: JSON.stringify(restaurant),
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-      if (response.ok) {
-        alert("Restaurant added to successfully!");
-        setRestaurants({
+      const response = await RestaurantService.insertRestaurant(restaurant);
+      if (response.status === 200) {
+        Swal.fire({
+          title: "Added restaurant successfully!",
+          icon: "success",
+          text: restaurant?.name,
+        }).then(() => {
+          navigate("/");
+        });
+        setRestaurant({
           name: "",
           type: "",
           imageUrl: "",
         });
+        console.log(response.data);
       }
     } catch (error) {
       console.log(error);
@@ -35,6 +36,7 @@ const AddRestaurant = () => {
   return (
     <div className="container mx-auto flex items-center flex-col">
       <h1 className="text-2xl mt-3">Add New Restaurant</h1>
+
       <div className="mt-2">
         <legend className="mt-2">What is your restaurant name?</legend>
         <input

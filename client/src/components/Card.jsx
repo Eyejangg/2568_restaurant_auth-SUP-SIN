@@ -1,21 +1,38 @@
 import React from "react";
+import { useAuthContext } from "../context/AuthContext";
+import RestaurantService from "../services/restaurant.service";
+import Swal from "sweetalert2";
 //card
 const Card = (props) => {
+  const { user } = useAuthContext();
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(
-        "http://localhost:5000/api/v1/restaurants/" + id,
-        {
-          method: "DELETE",
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-      if (response.ok) {
-        alert("Restaurant had been deleted!!");
-        window.location.reload();
+      const response = await RestaurantService.deleteRestaurant(id);
+      if (response.status === 200) {
+        await Swal.fire({
+          title: "Deleted!",
+          text: "Restaurant has been deleted.",
+          icon: "success",
+          confirmButtonText: "OK",
+          customClass: {
+            confirmButton: "btn btn-primary",
+          },
+          buttonsStyling: false,
+        }).then(() => {
+          window.location.reload();
+        });
       }
     } catch (error) {
-      console.log(error);
+      Swal.fire({
+        title: "Error",
+        text: error?.response?.data?.message || error.message,
+        icon: "error",
+        confirmButtonText: "OK",
+        customClass: {
+          confirmButton: "btn btn-primary",
+        },
+        buttonsStyling: false,
+      });
     }
   };
   return (
@@ -29,17 +46,26 @@ const Card = (props) => {
           <div className="badge badge-secondary">NEW</div>
         </h2>
         <p>{props.type}</p>
-        <div className="card-actions justify-end">
-          <a href={"/update/" + props.id} className="btn btn-warning">
-            Edit
-          </a>
-          <button
-            onClick={() => handleDelete(props.id)}
-            className="btn btn-error"
-          >
-            Delete
-          </button>
-        </div>
+        {user && user.authorities.includes("ROLES_ADMIN") && (
+          <div className="card-actions justify-end">
+            <a href={"/update/" + props.id} className="btn btn-warning">
+              Edit
+            </a>
+            <button
+              onClick={() => handleDelete(props.id)}
+              className="btn btn-error"
+            >
+              Delete
+            </button>
+          </div>
+        )}
+        {user && user.authorities.includes("ROLES_MODERATOR") && (
+          <div className="card-actions justify-end">
+            <a href={"/update/" + props.id} className="btn btn-warning">
+              Edit
+            </a>
+          </div>
+        )}
       </div>
     </div>
   );
