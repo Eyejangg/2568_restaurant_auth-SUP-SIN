@@ -53,57 +53,74 @@ const Signup = () => {
   };
 
   return (
-    <div className="container mx-auto flex items-center flex-col">
-      <h1 className="text-2xl mt-3">NICE TO MEET YOU MY NEW USER</h1>
-      <div className="mt-2">
-        <legend className="mt-2">USERNAME:</legend>
-        <input
-          type="text"
-          name="username"
-          value={user.username}
-          className="input"
-          placeholder="username"
-          onChange={handleChange}
-        />
-      </div>
-      <div className="mt-2">
-        <legend className="mt-2">PASSWORD:</legend>
-        <input
-          type="password"
-          name="password"
-          value={user.password}
-          className="input"
-          placeholder="password"
-          onChange={handleChange}
-        />
-      </div>
-      <div className="mt-2">
-        <legend className="mt-2">NAME:</legend>
-        <input
-          type="text"
-          name="name"
-          value={user.name}
-          className="input"
-          placeholder="name"
-          onChange={handleChange}
-        />
-        <legend className="mt-2">EMAIL:</legend>
-        <input
-          type="email"
-          name="email"
-          value={user.email}
-          className="input"
-          placeholder="email"
-          onChange={handleChange}
-        />
-      </div>
-      <div className="mt-3 space-x-2">
-        <button onClick={handleSubmit} className="btn btn-soft btn-success">
-          SIGN UP
-        </button>
-        <button className="btn btn-soft btn-error">CANCEL</button>
-      </div>
+<div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 p-4">
+  <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md">
+    <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
+      NICE TO MEET YOU MY NEW USER
+    </h1>
+
+    <div className="mt-2">
+      <legend className="block text-gray-700 font-medium mb-1">USERNAME:</legend>
+      <input
+        type="text"
+        name="username"
+        value={user.username}
+        className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 transition text-black"
+        placeholder="username"
+        onChange={handleChange}
+      />
     </div>
+
+    <div className="mt-2">
+      <legend className="block text-gray-700 font-medium mb-1">PASSWORD:</legend>
+      <input
+        type="password"
+        name="password"
+        value={user.password}
+        className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 transition text-black"
+        placeholder="password"
+        onChange={handleChange}
+      />
+    </div>
+
+    <div className="mt-2">
+      <legend className="block text-gray-700 font-medium mb-1">NAME:</legend>
+      <input
+        type="text"
+        name="name"
+        value={user.name}
+        className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 transition text-black"
+        placeholder="name"
+        onChange={handleChange}
+      />
+
+      <legend className="block text-gray-700 font-medium mb-1 mt-4">EMAIL:</legend>
+      <input
+        type="email"
+        name="email"
+        value={user.email}
+        className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 transition text-black"
+        placeholder="email"
+        onChange={handleChange}
+      />
+    </div>
+
+    <div className="mt-6 flex space-x-2">
+      <button
+        onClick={handleSubmit}
+        className="w-full py-2 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition"
+      >
+        SIGN UP
+      </button>
+      <button
+        className="w-full py-2 bg-red-400 text-white font-semibold rounded-lg hover:bg-red-500 transition"
+      >
+        CANCEL
+      </button>
+    </div>
+  </div>
+</div>
+
   );
 };
 

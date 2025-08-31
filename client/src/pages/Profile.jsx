@@ -31,7 +31,7 @@ const Profile = () => {
           <div className="avatar mb-4">
             <div className="w-32 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
               <img
-                src={user.userInfo.avatar || "https://i.pravatar.cc/150?img=12"}
+                src={user.userInfo.avatar || "https://www.google.com/url?sa=i&url=https%3A%2F%2Fdev.to%2Fashallendesign%2F13-placeholder-avatar-image-websites-4g03&psig=AOvVaw2VEboGGBFYC22pN_xcz5t-&ust=1756743096822000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCOCC1aS4tY8DFQAAAAAdAAAAABAE"}
                 alt="User Avatar"
               />
             </div>
