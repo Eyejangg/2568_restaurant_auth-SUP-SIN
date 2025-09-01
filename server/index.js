@@ -10,7 +10,11 @@ const FRONTEND_URL = process.env.FRONTEND_URL;
 
 app.use(
   cors({
-    origin: ["http://localhost:5173", "127.0.0.1:5173", FRONTEND_URL],
+    origin: [
+      "https://2568-restaurant-auth-sup-sin-vk9c.vercel.app",
+      "127.0.0.1:5173",
+      FRONTEND_URL,
+    ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization", "x-access-token"],
   })
