@@ -4,7 +4,7 @@ import Home from "../pages/Home";
 import UpdateRestaurant from "../pages/UpdateRestaurant";
 import Signin from "../pages/Signin";
 import Signup from "../pages/Signup";
-import AdminPage from "../pages/Adminpage";
+import AdminPage from "../pages/AdminPage";
 import Profile from "../pages/Profile";
 import NotAllowed from "../pages/NotAllowed";
 import UserPage from "../pages/Userpage";
