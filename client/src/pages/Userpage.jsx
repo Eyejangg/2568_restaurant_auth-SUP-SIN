@@ -1,5 +1,5 @@
 import { Navigate } from "react-router";
-import { useAuthContext } from "../context/AuthContext";
+import { useAuthContext } from "../Context/AuthContext";
 
 const UserPage = ({ children }) => {
   const { user } = useAuthContext();
